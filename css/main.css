@@ -252,19 +252,126 @@ nav {
     font-size: 14px;
 }
 
-/* ส่วนท้าย (Footer) */
+/* ========================================= */
+/* ส่วนท้าย (Footer) แบบพรีเมียม */
+/* ========================================= */
 footer {
-    background-color: #172b4d;
-    color: #ffffff;
-    text-align: center;
-    padding: 30px 20px;
-    margin-top: 40px;
+    background-color: var(--bg-white);
+    border-top: 4px solid var(--cu-pink); 
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.02);
+    padding: 60px 20px 20px;
+    color: var(--text-dark);
+    margin-top: 80px;
 }
 
-footer p {
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.footer-logos {
+    display: flex;
+    align-items: center;
+    gap: 30px; /* ขยายระยะห่างระหว่างโลโก้ 2 ตัวบน PC */
+}
+
+/* ปรับขนาดโลโก้บน PC ให้ใหญ่ขึ้นชัดเจน */
+.footer-logo-img {
+    height: 110px; 
+    width: auto;
+    object-fit: contain;
+}
+
+.footer-links-wrapper {
+    text-align: right;
+}
+
+/* ปรับขนาดฟอนต์หัวข้อบน PC ให้ใหญ่ขึ้น */
+.footer-links-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
     margin: 0;
-    font-size: 14px;
-    opacity: 0.8;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* ปรับขนาดฟอนต์ลิงก์บน PC ให้ใหญ่ขึ้นอ่านง่าย */
+.footer-links a {
+    color: var(--text-dark);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
+}
+
+.footer-links a:hover {
+    color: var(--cu-pink);
+    transform: translateX(-5px);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid #E5E7EB;
+}
+
+/* ปรับขนาดฟอนต์ Copyright บน PC ให้สมดุล */
+.footer-bottom p {
+    margin: 0 0 8px 0;
+    font-size: 15px;
+    color: var(--text-light);
+}
+
+/* ========================================= */
+/* Responsive สำหรับมือถือ (คงความสวยงามแบบเดิมไว้) */
+/* ========================================= */
+@media screen and (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 30px;
+    }
+    .footer-logos {
+        gap: 20px;
+    }
+    .footer-logo-img {
+        height: 70px; /* ย่อโลโก้กลับมาขนาดเดิมที่ดูสวยบนมือถือ */
+    }
+    .footer-links-wrapper {
+        text-align: center;
+    }
+    .footer-links-title {
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+    .footer-links a {
+        font-size: 14px; /* ย่อฟอนต์กลับมาขนาดเดิม */
+    }
+    .footer-links a:hover {
+        transform: translateX(0); /* ยกเลิกเอฟเฟกต์ขยับบนมือถือ */
+    }
+    .footer-bottom p {
+        font-size: 13px;
+    }
 }
 
 /* ========================================= */

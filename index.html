@@ -94,10 +94,35 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer แบบใหม่ (พรีเมียมขึ้น) -->
     <footer>
-        <p data-i18n="footer_copy">&copy; 2026 VET-ANAT HistoHub Services. All rights reserved.</p>
-        <p style="margin-top: 10px; font-size: 12px;" data-i18n="footer_note">หมายเหตุ: ระบบนี้ออกแบบมาเพื่อรองรับงานวิจัยและงานบริการวิชาการโดยเฉพาะ</p>
+        <div class="footer-container">
+            <!-- ฝั่งซ้าย: โลโก้ -->
+            <div class="footer-logos">
+                <!-- เตรียมไฟล์โลโก้จริงเป็น PNG พื้นใส จะสวยมากครับ -->
+                <img src="assets/icons/cuvet_90th.png" alt="CUVET Logo" class="footer-logo-img" onerror="this.src='https://placehold.co/120x80/f9fafb/475569?text=CUVET'">
+                <img src="assets/icons/anatomy_logo.png" alt="Anatomy Dept Logo" class="footer-logo-img" onerror="this.src='https://placehold.co/80x80/f9fafb/475569?text=ANAT'">
+            </div>
+
+            <!-- ฝั่งขวา: ลิงก์หน่วยงาน -->
+            <div class="footer-links-wrapper">
+                <div class="footer-links-title" data-i18n="foot_link_title">หน่วยงานที่เกี่ยวข้อง</div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="https://www.vet.chula.ac.th/" target="_blank" data-i18n="foot_link_1">คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย</a></li>
+                        <li><a href="https://www.vet.chula.ac.th/department/anatomy" data-i18n="foot_link_2">ภาควิชากายวิภาคศาสตร์ คณะสัตวแพทยศาสตร์</a></li>
+                        <li><a href="http://www.exhibitant.vet.chula.ac.th/" data-i18n="foot_link_3">ส่วนจัดแสดงกายวิภาคทางสัตวแพทย์</a></li>
+                        <li><a href="https://luvkronis.github.io/vet.biosci/" data-i18n="foot_link_4">หลักสูตรบัณฑิตศึกษา ชีวศาสตร์ทางสัตวแพทย์</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ส่วนล่างสุด: ลิขสิทธิ์ -->
+        <div class="footer-bottom">
+            <p data-i18n="footer_copy">&copy; 2026 VET-ANAT HistoHub Services. All rights reserved.</p>
+            <p data-i18n="footer_note">หมายเหตุ: ระบบนี้ออกแบบมาเพื่อรองรับงานวิจัยและงานบริการวิชาการโดยเฉพาะ</p>
+        </div>
     </footer>
 
     <!-- JavaScript -->
@@ -128,7 +153,12 @@
                 srv_analysis_title: "บริการวิเคราะห์สไลด์<br>(Slide Analysis)",
                 srv_analysis_desc: "บริการอ่านและวิเคราะห์ผลทางพยาธิวิทยา ประเมินรอยโรคบนสไลด์แก้วและสไลด์ดิจิทัล สำหรับงานวิจัย",
                 footer_copy: "&copy; 2026 VET-ANAT HistoHub. All rights reserved.",
-                footer_note: "หมายเหตุ: ระบบนี้ออกแบบมาเพื่อรองรับงานวิจัยและงานบริการวิชาการโดยเฉพาะ"
+                footer_note: "หมายเหตุ: ระบบนี้ออกแบบมาเพื่อรองรับงานวิจัยและงานบริการวิชาการโดยเฉพาะ",
+                foot_link_title: "หน่วยงานที่เกี่ยวข้อง",
+                foot_link_1: "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
+                foot_link_2: "ภาควิชากายวิภาคศาสตร์ คณะสัตวแพทยศาสตร์",
+                foot_link_3: "ส่วนจัดแสดงกายวิภาคทางสัตวแพทย์",
+                foot_link_4: "หลักสูตรบัณฑิตศึกษา ชีวศาสตร์ทางสัตวแพทย์"
             },
             en: {
                 page_title: "Academic Services System",
@@ -155,7 +185,12 @@
                 srv_analysis_title: "Slide Analysis<br>Services",
                 srv_analysis_desc: "Pathological analysis and lesion evaluation on glass and digital slides, specialized for research purposes.",
                 footer_copy: "&copy; 2026 Academic Services. All rights reserved.",
-                footer_note: "Note: This system is designed specifically for research and academic services."
+                footer_note: "Note: This system is designed specifically for research and academic services.",
+                foot_link_title: "Related Links",
+                foot_link_1: "Faculty of Veterinary Science, Chulalongkorn University",
+                foot_link_2: "Department of Anatomy, Faculty of Veterinary Science",
+                foot_link_3: "Veterinary Anatomy Exhibition",
+                foot_link_4: "Graduate Program in Veterinary Biosciences"
             }
         };
 
