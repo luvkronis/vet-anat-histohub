@@ -15,22 +15,18 @@
     <nav>
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <!-- เพิ่มโลโก้ตรงนี้ (ตั้ง fallback เป็น placeholder เผื่อรูปพัง) -->
                 <img src="assets/icons/cuvet.jpg" alt="Logo" class="nav-logo-img" onerror="this.src='https://placehold.co/40x40/F37FA7/ffffff?text=Logo'">
                 <span data-i18n="logo_text">Academic Services</span>
             </a>
             
-            <!-- ปุ่มเมนูสำหรับมือถือ (Hamburger Icon) -->
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
 
-            <!-- ลิงก์เมนูต่างๆ -->
             <div class="nav-links" id="nav-menu">
                 <a href="#services" data-i18n="nav_services" onclick="toggleMenu()">บริการของเรา</a>
                 <a href="contact.html" data-i18n="nav_contact">ติดต่อสอบถาม</a>
                 <a href="login.html" class="btn-outline" data-i18n="nav_login">เข้าสู่ระบบ</a>
                 <a href="register.html" class="btn-outline" style="background-color: var(--cu-pink); color: white;" data-i18n="nav_register">ลงทะเบียน</a>
                 
-                <!-- ปุ่มสลับภาษา -->
                 <div class="lang-switcher">
                     <button class="lang-btn active" id="btn-th" onclick="changeLanguage('th')">TH</button>
                     <button class="lang-btn" id="btn-en" onclick="changeLanguage('en')">EN</button>
@@ -50,49 +46,62 @@
     <section id="services" class="services">
         <div class="section-title">
             <h2 data-i18n="sec_services_title">บริการของเรา</h2>
-            <p data-i18n="sec_services_desc">ครอบคลุมทุกกระบวนการเตรียมสไลด์ทางพยาธิวิทยา</p>
+            <p data-i18n="sec_services_desc">ครอบคลุมทุกกระบวนการทางพยาธิวิทยา ตั้งแต่เตรียมชิ้นเนื้อจนถึงการวิเคราะห์ผล</p>
         </div>
         
         <div class="grid-services">
-            <!-- Service 1 -->
+            <!-- ขั้นตอนที่ 1 -->
             <div class="service-card">
                 <div class="service-icon">🔬</div>
-                <h3 data-i18n="srv_grossing_title">บริการตัดชิ้นเนื้อ<br>(Grossing)</h3>
-                <p data-i18n="srv_grossing_desc">บริการรับชิ้นเนื้อเพื่อนำมาตัดและเตรียมลงบล็อกเทียน (Paraffin Block) ตามมาตรฐานห้องปฏิบัติการ</p>
+                <h3 data-i18n="srv_grossing_title">บริการเตรียมชิ้นเนื้อ<br>(Grossing)</h3>
+                <p data-i18n="srv_grossing_desc">บริการรับชิ้นเนื้อเพื่อนำมาตัดและเตรียมลงบล็อกพาราฟิน (Paraffin Block) ตามมาตรฐานห้องปฏิบัติการ</p>
+            </div>
+
+            <!-- ขั้นตอนที่ 2 -->
+            <div class="service-card">
+                <div class="service-icon">❄️</div>
+                <h3 data-i18n="srv_cryo_title">บริการตัดชิ้นเนื้อแช่แข็ง<br>(Cryosection)</h3>
+                <p data-i18n="srv_cryo_desc">บริการเตรียมและตัดชิ้นเนื้อสดแช่แข็งด้วยเครื่อง Cryostat เพื่อรักษาสภาพแอนติเจนสำหรับงานวิจัยเฉพาะทาง</p>
             </div>
             
-            <!-- Service 2 -->
+            <!-- ขั้นตอนที่ 3 -->
             <div class="service-card">
                 <div class="service-icon">🔪</div>
                 <h3 data-i18n="srv_sectioning_title">บริการตัดสไลด์<br>(Sectioning)</h3>
-                <p data-i18n="srv_sectioning_desc">บริการตัดฝานบล็อกเทียนให้เป็นแผ่นบางเพื่อวางลงบนสไลด์แก้ว เตรียมพร้อมสำหรับการย้อมสี</p>
+                <p data-i18n="srv_sectioning_desc">บริการตัดบล็อกพาราฟินให้เป็นแผ่นบางเพื่อวางลงบนสไลด์แก้ว เตรียมพร้อมสำหรับการย้อมสี</p>
             </div>
             
-            <!-- Service 3 -->
+            <!-- ขั้นตอนที่ 4 -->
             <div class="service-card">
                 <div class="service-icon">🧪</div>
                 <h3 data-i18n="srv_staining_title">บริการย้อมสไลด์<br>(Staining)</h3>
                 <p data-i18n="srv_staining_desc">บริการย้อมสีสไลด์พื้นฐาน (H&E) และการย้อมสีพิเศษ (Special Stains) เพื่อการวินิจฉัยและการวิจัย</p>
             </div>
             
-            <!-- Service 4 -->
+            <!-- ขั้นตอนที่ 5 -->
             <div class="service-card">
                 <div class="service-icon">🖥️</div>
                 <h3 data-i18n="srv_scanning_title">บริการสแกนสไลด์<br>(Scanning)</h3>
                 <p data-i18n="srv_scanning_desc">บริการสแกนสไลด์แก้วเป็นไฟล์ดิจิทัลความละเอียดสูง (Whole Slide Imaging) ที่กำลังขยาย 20x และ 40x</p>
+            </div>
+
+            <!-- ขั้นตอนที่ 6 (เพิ่มใหม่) -->
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3 data-i18n="srv_analysis_title">บริการวิเคราะห์สไลด์<br>(Slide Analysis)</h3>
+                <p data-i18n="srv_analysis_desc">บริการอ่านและวิเคราะห์ผลทางพยาธิวิทยา ประเมินรอยโรคบนสไลด์แก้วและสไลด์ดิจิทัล สำหรับงานวิจัย</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p data-i18n="footer_copy">&copy; 2026 Academic Services. All rights reserved.</p>
+        <p data-i18n="footer_copy">&copy; 2026 VET-ANAT HistoHub Services. All rights reserved.</p>
         <p style="margin-top: 10px; font-size: 12px;" data-i18n="footer_note">หมายเหตุ: ระบบนี้ออกแบบมาเพื่อรองรับงานวิจัยและงานบริการวิชาการโดยเฉพาะ</p>
     </footer>
 
     <!-- JavaScript -->
     <script>
-        // 1. สร้าง Dictionary เก็บคำแปล
         const translations = {
             th: {
                 page_title: "ระบบรับงานบริการวิชาการ - Academic Services",
@@ -105,16 +114,20 @@
                 hero_desc: "ให้บริการจัดการและเตรียมสิ่งส่งตรวจทางห้องปฏิบัติการครบวงจร รองรับทั้งชิ้นเนื้อและสไลด์แก้ว ด้วยมาตรฐานระดับมืออาชีพ สะดวก รวดเร็ว และติดตามสถานะได้ตลอดเวลา",
                 hero_btn: "เริ่มต้นส่งงาน / เข้าสู่ระบบ",
                 sec_services_title: "บริการของเรา",
-                sec_services_desc: "ครอบคลุมทุกกระบวนการเตรียมสไลด์ทางพยาธิวิทยา",
-                srv_grossing_title: "บริการตัดชิ้นเนื้อ<br>(Grossing)",
-                srv_grossing_desc: "บริการรับชิ้นเนื้อเพื่อนำมาตัดและเตรียมลงบล็อกเทียน (Paraffin Block) ตามมาตรฐานห้องปฏิบัติการ",
+                sec_services_desc: "ครอบคลุมทุกกระบวนการทางพยาธิวิทยา ตั้งแต่เตรียมชิ้นเนื้อจนถึงการวิเคราะห์ผล",
+                srv_grossing_title: "บริการเตรียมชิ้นเนื้อ<br>(Grossing)",
+                srv_grossing_desc: "บริการรับชิ้นเนื้อเพื่อนำมาตัดและเตรียมลงบล็อกพาราฟิน (Paraffin Block) ตามมาตรฐานห้องปฏิบัติการ",
+                srv_cryo_title: "บริการตัดชิ้นเนื้อแช่แข็ง<br>(Cryosection)",
+                srv_cryo_desc: "บริการเตรียมและตัดชิ้นเนื้อสดแช่แข็งด้วยเครื่อง Cryostat เพื่อรักษาสภาพแอนติเจนสำหรับงานวิจัยเฉพาะทาง",
                 srv_sectioning_title: "บริการตัดสไลด์<br>(Sectioning)",
-                srv_sectioning_desc: "บริการตัดฝานบล็อกเทียนให้เป็นแผ่นบางเพื่อวางลงบนสไลด์แก้ว เตรียมพร้อมสำหรับการย้อมสี",
+                srv_sectioning_desc: "บริการตัดบล็อกพาราฟินให้เป็นแผ่นบางเพื่อวางลงบนสไลด์แก้ว เตรียมพร้อมสำหรับการย้อมสี",
                 srv_staining_title: "บริการย้อมสไลด์<br>(Staining)",
                 srv_staining_desc: "บริการย้อมสีสไลด์พื้นฐาน (H&E) และการย้อมสีพิเศษ (Special Stains) เพื่อการวินิจฉัยและการวิจัย",
                 srv_scanning_title: "บริการสแกนสไลด์<br>(Scanning)",
                 srv_scanning_desc: "บริการสแกนสไลด์แก้วเป็นไฟล์ดิจิทัลความละเอียดสูง (Whole Slide Imaging) ที่กำลังขยาย 20x และ 40x",
-                footer_copy: "&copy; 2026 Academic Services. All rights reserved.",
+                srv_analysis_title: "บริการวิเคราะห์สไลด์<br>(Slide Analysis)",
+                srv_analysis_desc: "บริการอ่านและวิเคราะห์ผลทางพยาธิวิทยา ประเมินรอยโรคบนสไลด์แก้วและสไลด์ดิจิทัล สำหรับงานวิจัย",
+                footer_copy: "&copy; 2026 VET-ANAT HistoHub. All rights reserved.",
                 footer_note: "หมายเหตุ: ระบบนี้ออกแบบมาเพื่อรองรับงานวิจัยและงานบริการวิชาการโดยเฉพาะ"
             },
             en: {
@@ -128,21 +141,24 @@
                 hero_desc: "Providing comprehensive management and preparation of pathology specimens. Supporting both tissues and glass slides with professional standards. Convenient, fast, and trackable status at all times.",
                 hero_btn: "Get Started / Login",
                 sec_services_title: "Our Services",
-                sec_services_desc: "Covering all processes of pathology slide preparation",
+                sec_services_desc: "Covering all pathology processes, from tissue preparation to slide analysis.",
                 srv_grossing_title: "Grossing<br>Services",
                 srv_grossing_desc: "Receiving tissues for cutting and processing into paraffin blocks according to laboratory standards.",
+                srv_cryo_title: "Cryosectioning<br>Services",
+                srv_cryo_desc: "Preparation and sectioning of fresh frozen tissue using a Cryostat to preserve antigenicity for specialized research.",
                 srv_sectioning_title: "Sectioning<br>Services",
                 srv_sectioning_desc: "Microtome sectioning of paraffin blocks into thin slices for glass slides, ready for staining.",
                 srv_staining_title: "Staining<br>Services",
                 srv_staining_desc: "Routine H&E staining and Special Stains for diagnosis and research purposes.",
                 srv_scanning_title: "Scanning<br>Services",
                 srv_scanning_desc: "Scanning glass slides into high-resolution digital files (Whole Slide Imaging) at 20x and 40x magnification.",
+                srv_analysis_title: "Slide Analysis<br>Services",
+                srv_analysis_desc: "Pathological analysis and lesion evaluation on glass and digital slides, specialized for research purposes.",
                 footer_copy: "&copy; 2026 Academic Services. All rights reserved.",
                 footer_note: "Note: This system is designed specifically for research and academic services."
             }
         };
 
-        // 2. ฟังก์ชันสลับภาษา
         function changeLanguage(lang) {
             localStorage.setItem('preferredLanguage', lang);
 
@@ -160,14 +176,11 @@
             document.documentElement.lang = lang;
         }
 
-        // 3. ฟังก์ชันเปิด/ปิดเมนูมือถือ
         function toggleMenu() {
             const menu = document.getElementById('nav-menu');
-            // เพิ่ม/ลบคลาส active เพื่อแสดงหรือซ่อนเมนู
             menu.classList.toggle('active');
         }
 
-        // 4. ทำงานอัตโนมัติเมื่อโหลดหน้าเว็บ
         window.onload = () => {
             const savedLanguage = localStorage.getItem('preferredLanguage') || 'th';
             changeLanguage(savedLanguage);

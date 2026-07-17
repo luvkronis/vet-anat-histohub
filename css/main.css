@@ -198,11 +198,26 @@ nav {
     color: var(--text-light);
 }
 
+/* ส่วนบริการของเรา (Services Section) */
 .grid-services {
     display: grid;
-    /* การตั้งค่า grid แบบนี้ทำให้เป็น Responsive อัตโนมัติ (ขึ้นบรรทัดใหม่ถ้าย่อจอ) */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* บังคับให้แสดง 3 คอลัมน์เท่าๆ กันบนหน้าจอใหญ่ */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 30px;
+}
+
+/* เพิ่มส่วนนี้เข้าไปเพื่อให้ Responsive บนหน้าจอขนาดกลาง (แท็บเล็ต) แสดง 2 กล่อง */
+@media screen and (max-width: 992px) {
+    .grid-services {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ส่วนของมือถือ (มีอยู่แล้วในไฟล์ แต่อาจจะเช็คให้ชัวร์ว่าปรับเป็น 1 กล่อง) */
+@media screen and (max-width: 768px) {
+    .grid-services {
+        grid-template-columns: 1fr;
+    }
 }
 
 .service-card {
