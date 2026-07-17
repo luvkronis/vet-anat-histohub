@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page_title">อยู่ระหว่างการปรับปรุง - Academic Services</title>
+    <!-- นำเข้าฟอนต์ Prompt จาก Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- นำเข้าไฟล์ CSS หลัก -->
+    <link rel="stylesheet" href="css/main.css">
+    
+    <style>
+        /* สไตล์เฉพาะสำหรับหน้ากำลังปรับปรุง */
+        .construction-container {
+            max-width: 800px;
+            margin: 80px auto 120px;
+            padding: 40px 20px;
+            text-align: center;
+            min-height: 45vh; /* ให้เนื้อหาอยู่กึ่งกลางจอพอดี */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--bg-white);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .construction-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite; /* เพิ่มลูกเล่นให้ไอคอนขยับเบาๆ */
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .construction-title {
+            font-size: 32px;
+            color: var(--text-dark);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .construction-desc {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        /* Responsive สำหรับมือถือ */
+        @media screen and (max-width: 768px) {
+            .construction-container {
+                margin: 40px 20px 60px;
+                padding: 30px 20px;
+            }
+            .construction-title {
+                font-size: 24px;
+            }
+            .construction-desc {
+                font-size: 16px;
+            }
+            .construction-icon {
+                font-size: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <!-- เพิ่มโลโก้ตรงนี้ (ตั้ง fallback เป็น placeholder เผื่อรูปพัง) -->
+                <img src="assets/icons/cuvet.jpg" alt="Logo" class="nav-logo-img" onerror="this.src='https://placehold.co/40x40/F37FA7/ffffff?text=Logo'">
+                <span data-i18n="logo_text">Academic Services</span>
+            </a>
+            
+            <!-- ปุ่มเมนูสำหรับมือถือ (Hamburger Icon) -->
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+            <!-- ลิงก์เมนูต่างๆ -->
+            <div class="nav-links" id="nav-menu">
+                <a href="index.html#services" data-i18n="nav_services" onclick="toggleMenu()">บริการของเรา</a>
+                <a href="contact.html" data-i18n="nav_contact">ติดต่อสอบถาม</a>
+                <a href="login.html" class="btn-outline" data-i18n="nav_login">เข้าสู่ระบบ</a>
+                <a href="register.html" class="btn-outline" style="background-color: var(--cu-pink); color: white;" data-i18n="nav_register">ลงทะเบียน</a>
+                
+                <!-- ปุ่มสลับภาษา -->
+                <div class="lang-switcher">
+                    <button class="lang-btn active" id="btn-th" onclick="changeLanguage('th')">TH</button>
+                    <button class="lang-btn" id="btn-en" onclick="changeLanguage('en')">EN</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ส่วนเนื้อหา Under Construction -->
+    <main>
+        <div class="construction-container">
+            <div class="construction-icon">⚙️</div>
+            <h1 class="construction-title" data-i18n="construct_title">หน้านี้อยู่ในระหว่างการปรับปรุง</h1>
+            <p class="construction-desc" data-i18n="construct_desc">ขออภัยในความไม่สะดวก ระบบในส่วนนี้กำลังอยู่ระหว่างการพัฒนาและเตรียมความพร้อม เพื่อเปิดให้บริการในเร็วๆ นี้</p>
+            <a href="index.html" class="btn-primary" data-i18n="btn_back_home">กลับสู่หน้าหลัก</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p data-i18n="footer_copy">&copy; 2026 VET-ANAT HistoHub Services. All rights reserved.</p>
+        <p style="margin-top: 10px; font-size: 12px;" data-i18n="footer_note">หมายเหตุ: ระบบนี้ออกแบบมาเพื่อรองรับงานวิจัยและงานบริการวิชาการโดยเฉพาะ</p>
+    </footer>
+
+    <!-- JavaScript สำหรับระบบ 2 ภาษาและเมนู -->
+    <script>
+        const translations = {
+            th: {
+                page_title: "อยู่ระหว่างการปรับปรุง - Academic Services",
+                logo_text: "Academic Services",
+                nav_services: "บริการของเรา",
+                nav_contact: "ติดต่อสอบถาม",
+                nav_login: "เข้าสู่ระบบ",
+                nav_register: "ลงทะเบียน",
+                construct_title: "หน้านี้อยู่ในระหว่างการปรับปรุง",
+                construct_desc: "ขออภัยในความไม่สะดวก ระบบในส่วนนี้กำลังอยู่ระหว่างการพัฒนาและเตรียมความพร้อม เพื่อเปิดให้บริการในเร็วๆ นี้",
+                btn_back_home: "กลับสู่หน้าหลัก",
+                footer_copy: "&copy; 2026 VET-ANAT HistoHub. All rights reserved.",
+                footer_note: "หมายเหตุ: ระบบนี้ออกแบบมาเพื่อรองรับงานวิจัยและงานบริการวิชาการโดยเฉพาะ"
+            },
+            en: {
+                page_title: "Under Construction - Academic Services",
+                logo_text: "Academic Services",
+                nav_services: "Our Services",
+                nav_contact: "Contact Us",
+                nav_login: "Login",
+                nav_register: "Register",
+                construct_title: "Page Under Construction",
+                construct_desc: "Sorry for the inconvenience. This part of the system is currently under development and will be available soon.",
+                btn_back_home: "Back to Home",
+                footer_copy: "&copy; 2026 Academic Services. All rights reserved.",
+                footer_note: "Note: This system is designed specifically for research and academic services."
+            }
+        };
+
+        function changeLanguage(lang) {
+            localStorage.setItem('preferredLanguage', lang);
+
+            document.getElementById('btn-th').classList.remove('active');
+            document.getElementById('btn-en').classList.remove('active');
+            document.getElementById(`btn-${lang}`).classList.add('active');
+
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.innerHTML = translations[lang][key];
+                }
+            });
+
+            document.documentElement.lang = lang;
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('active');
+        }
+
+        window.onload = () => {
+            const savedLanguage = localStorage.getItem('preferredLanguage') || 'th';
+            changeLanguage(savedLanguage);
+        };
+    </script>
+</body>
+</html>
