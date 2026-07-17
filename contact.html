@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="page_title">ติดต่อสอบถาม - Academic Services</title>
+    <!-- นำเข้าฟอนต์ Prompt จาก Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- นำเข้าไฟล์ CSS หลัก -->
+    <link rel="stylesheet" href="css/main.css">
+    
+    <style>
+        /* สไตล์เฉพาะสำหรับหน้า Contact (Bento Boxes) */
+        .contact-container {
+            max-width: 1200px;
+            margin: 40px auto 80px;
+            padding: 0 20px;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .bento-box {
+            background-color: var(--bg-white);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* กล่องแผนที่ */
+        .bento-map {
+            padding: 0;
+            overflow: hidden;
+            min-height: 480px;
+        }
+
+        .bento-map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* ส่วนหัวเรื่องหน้าเพจ */
+        .page-header {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        .page-header h1 {
+            font-size: 48px; 
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            color: var(--text-light);
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* เนื้อหาในกล่องติดต่อ - ปรับสัดส่วนใหม่ให้เท่ากับ index.html */
+        .contact-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .contact-address {
+            font-size: 16px;
+            color: var(--text-light);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .contact-divider {
+            border: none;
+            border-top: 1px solid #E5E7EB;
+            margin-bottom: 24px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            gap: 16px;
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-icon {
+            width: 24px;
+            height: 24px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            color: var(--cu-pink-dark);
+        }
+
+        .contact-text-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .contact-label {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+
+        .contact-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-link:hover {
+            color: var(--cu-pink);
+        }
+
+        /* Responsive สำหรับมือถือ */
+        @media screen and (max-width: 768px) {
+            .page-header h1 {
+                font-size: 32px;
+            }
+            .page-header {
+                padding: 40px 20px 20px;
+            }
+            .contact-title {
+                font-size: 20px;
+            }
+            .contact-value {
+                font-size: 16px;
+            }
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+            .bento-map {
+                min-height: 350px;
+            }
+            .bento-box {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <!-- เพิ่มโลโก้ตรงนี้ (ตั้ง fallback เป็น placeholder เผื่อรูปพัง) -->
+                <img src="assets/icons/cuvet.jpg" alt="Logo" class="nav-logo-img" onerror="this.src='https://placehold.co/40x40/F37FA7/ffffff?text=Logo'">
+                <span data-i18n="logo_text">Academic Services</span>
+            </a>
+            
+            <!-- ปุ่มเมนูสำหรับมือถือ (Hamburger Icon) -->
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+            <!-- ลิงก์เมนูต่างๆ -->
+            <div class="nav-links" id="nav-menu">
+                <a href="index.html#services" data-i18n="nav_services" onclick="toggleMenu()">บริการของเรา</a>
+                <a href="contact.html" data-i18n="nav_contact">ติดต่อสอบถาม</a>
+                <a href="login.html" class="btn-outline" data-i18n="nav_login">เข้าสู่ระบบ</a>
+                <a href="register.html" class="btn-outline" style="background-color: var(--cu-pink); color: white;" data-i18n="nav_register">ลงทะเบียน</a>
+                
+                <!-- ปุ่มสลับภาษา -->
+                <div class="lang-switcher">
+                    <button class="lang-btn active" id="btn-th" onclick="changeLanguage('th')">TH</button>
+                    <button class="lang-btn" id="btn-en" onclick="changeLanguage('en')">EN</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1 data-i18n="hero_title">ติดต่อสอบถาม</h1>
+        <p data-i18n="hero_desc">ระบบรับงานบริการวิชาการ ภาควิชากายวิภาคศาสตร์ คณะสัตวแพทยศาสตร์</p>
+    </div>
+
+    <!-- Contact Bento Grid -->
+    <div class="contact-container">
+        <div class="bento-grid">
+            
+            <!-- กล่องที่ 1: ข้อมูลการติดต่อ -->
+            <div class="bento-box">
+                <div class="contact-title" data-i18n="contact_dept">ภาควิชากายวิภาคศาสตร์ คณะสัตวแพทยศาสตร์<br>จุฬาลงกรณ์มหาวิทยาลัย</div>
+                <div class="contact-address" data-i18n="contact_address">ถนนอังรีดูนังต์ แขวงปทุมวัน เขตปทุมวัน กรุงเทพมหานคร 10330</div>
+                
+                <hr class="contact-divider">
+
+                <!-- เบอร์โทร 1 -->
+                <div class="contact-item">
+                    <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    <div class="contact-text-group">
+                        <span class="contact-value">02-218-9696</span>
+                        <span class="contact-label" data-i18n="contact_tel1_label">(สอบถามงานบริการ / ห้องปฏิบัติการ)</span>
+                    </div>
+                </div>
+
+                <!-- เบอร์โทร 2 -->
+                <div class="contact-item">
+                    <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                    <div class="contact-text-group">
+                        <span class="contact-value">02-218-9697</span>
+                        <span class="contact-label" data-i18n="contact_tel2_label">(สำนักงานภาควิชา)</span>
+                    </div>
+                </div>
+
+                <!-- อีเมล 1 -->
+                <div class="contact-item">
+                    <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    <div class="contact-text-group">
+                        <a href="mailto:sayamon.s@chula.ac.th" class="contact-value contact-link">sayamon.s@chula.ac.th</a>
+                        <span class="contact-label" data-i18n="contact_email1_label">(รศ.สพ.ญ.ดร. ศยามณ ศรีสุวัฒนาสกุล)</span>
+                        <span class="contact-label" data-i18n="contact_pos1_label">(หัวหน้าภาควิชา)</span>
+                    </div>
+                </div>
+
+                <!-- อีเมล 2 -->
+                <div class="contact-item">
+                    <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    <div class="contact-text-group">
+                        <a href="mailto:Juthapron.P@chula.ac.th" class="contact-value contact-link">Juthapron.P@chula.ac.th</a>
+                        <span class="contact-label" data-i18n="contact_email2_label">(ว่าที่ ร.ต.หญิง จุฑาภรณ์ พาวินัย)</span>
+                        <span class="contact-label" data-i18n="contact_pos2_label">(หัวหน้าห้องปฏิบัติการ)</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- กล่องที่ 2: แผนที่ Google Maps -->
+            <div class="bento-box bento-map">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.603615714177!2d100.53356389999999!3d13.742431799999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29ed3b742bd4b%3A0xda150f2e84e485e3!2z4Lit4Liy4LiE4Liy4LijIDYwIOC4m-C4tSDguKrguLHguJXguKfguYHguJ7guJfguKLguKjguLLguKrguJXguKPguYwg4LiE4LiT4Liw4Liq4Lix4LiV4Lin4LmB4Lie4LiX4Lii4Lio4Liy4Liq4LiV4Lij4LmMIOC4iOC4uOC4rOC4suC4rw!5e0!3m2!1sth!2ssg!4v1782972053102!5m2!1sth!2ssg" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p data-i18n="footer_copy">&copy; 2026 Academic Services. All rights reserved.</p>
+        <p style="margin-top: 10px; font-size: 12px;" data-i18n="footer_note">หมายเหตุ: ระบบนี้ออกแบบมาเพื่อรองรับงานวิจัยและงานบริการวิชาการโดยเฉพาะ</p>
+    </footer>
+
+    <!-- JavaScript สำหรับระบบ 2 ภาษาและเมนู -->
+    <script>
+        const translations = {
+            th: {
+                page_title: "ติดต่อสอบถาม - Academic Services",
+                logo_text: "Academic Services",
+                nav_services: "บริการของเรา",
+                nav_contact: "ติดต่อสอบถาม",
+                nav_login: "เข้าสู่ระบบ",
+                nav_register: "ลงทะเบียน",
+                hero_title: "ติดต่อสอบถาม",
+                hero_desc: "ระบบรับงานบริการวิชาการ ภาควิชากายวิภาคศาสตร์ คณะสัตวแพทยศาสตร์",
+                contact_dept: "ภาควิชากายวิภาคศาสตร์ คณะสัตวแพทยศาสตร์<br>จุฬาลงกรณ์มหาวิทยาลัย",
+                contact_address: "ถนนอังรีดูนังต์ แขวงปทุมวัน เขตปทุมวัน กรุงเทพมหานคร 10330",
+                contact_tel1_label: "(สอบถามงานบริการ / ห้องปฏิบัติการ)",
+                contact_tel2_label: "(สำนักงานภาควิชา)",
+                contact_email1_label: "(รศ.สพ.ญ.ดร. ศยามณ ศรีสุวัฒนาสกุล)",
+                contact_email2_label: "(ว่าที่ ร.ต.หญิง จุฑาภรณ์ พาวินัย)",
+                contact_pos1_label: "(หัวหน้าภาควิชา)",
+                contact_pos2_label: "(หัวหน้าห้องปฏิบัติการ)",
+                footer_copy: "&copy; 2026 Academic Services. All rights reserved.",
+                footer_note: "หมายเหตุ: ระบบนี้ออกแบบมาเพื่อรองรับงานวิจัยและงานบริการวิชาการโดยเฉพาะ"
+            },
+            en: {
+                page_title: "Contact Us - Academic Services",
+                logo_text: "Academic Services",
+                nav_services: "Our Services",
+                nav_contact: "Contact Us",
+                nav_login: "Login",
+                nav_register: "Register",
+                hero_title: "Contact Us",
+                hero_desc: "Academic Services, Department of Anatomy, Faculty of Veterinary Science",
+                contact_dept: "Department of Anatomy, Faculty of Veterinary Science<br>Chulalongkorn University",
+                contact_address: "Henri Dunant Rd., Pathumwan, Bangkok 10330, Thailand",
+                contact_tel1_label: "(Services / Laboratory Inquiries)",
+                contact_tel2_label: "(Department Office)",
+                contact_email1_label: "(Assoc. Prof. Sayamon Srisuwatanasagul, D.V.M., Ph.D.)",
+                contact_email2_label: "(Acting Sub-Lt. Juthapron Pavinai)",
+                contact_pos1_label: "(Head of Department)",
+                contact_pos2_label: "(Head of Laboratory)",
+                footer_copy: "&copy; 2026 Academic Services. All rights reserved.",
+                footer_note: "Note: This system is designed specifically for research and academic services."
+            }
+        };
+
+        function changeLanguage(lang) {
+            localStorage.setItem('preferredLanguage', lang);
+
+            document.getElementById('btn-th').classList.remove('active');
+            document.getElementById('btn-en').classList.remove('active');
+            document.getElementById(`btn-${lang}`).classList.add('active');
+
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.innerHTML = translations[lang][key];
+                }
+            });
+
+            document.documentElement.lang = lang;
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('active');
+        }
+
+        window.onload = () => {
+            const savedLanguage = localStorage.getItem('preferredLanguage') || 'th';
+            changeLanguage(savedLanguage);
+        };
+    </script>
+</body>
+</html>
