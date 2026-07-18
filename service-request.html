@@ -3,71 +3,295 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="page_title">อยู่ระหว่างการปรับปรุง - Academic Services</title>
-    <!-- นำเข้าฟอนต์ Prompt จาก Google Fonts -->
+    <title data-i18n="page_title">ส่งตัวอย่างสิ่งส่งตรวจ - Academic Services</title>
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- นำเข้าไฟล์ CSS หลัก -->
     <link rel="stylesheet" href="css/main.css">
     
     <style>
-        /* สไตล์เฉพาะสำหรับหน้ากำลังปรับปรุง */
-        .construction-container {
-            max-width: 800px;
-            margin: 80px auto 120px;
-            padding: 40px 20px;
+        /* สไตล์หน้าฟอร์มรับงาน */
+        .request-container {
+            max-width: 900px;
+            margin: 40px auto 80px;
+            padding: 0 20px;
+        }
+
+        .page-header {
             text-align: center;
-            min-height: 45vh; /* ให้เนื้อหาอยู่กึ่งกลางจอพอดี */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            color: var(--text-light);
+            font-size: 16px;
+        }
+
+        .form-card {
             background-color: var(--bg-white);
             border-radius: 16px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            padding: 40px;
+            margin-bottom: 30px;
         }
 
-        .construction-icon {
-            font-size: 80px;
+        /* ระบบ Tabs */
+        .tabs-wrapper {
+            display: flex;
+            gap: 10px;
             margin-bottom: 20px;
-            animation: float 3s ease-in-out infinite; /* เพิ่มลูกเล่นให้ไอคอนขยับเบาๆ */
+            border-bottom: 2px solid #E5E7EB;
+            padding-bottom: 10px;
         }
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .construction-title {
-            font-size: 32px;
-            color: var(--text-dark);
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        .construction-desc {
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
             font-size: 18px;
+            font-weight: 600;
             color: var(--text-light);
-            margin-bottom: 40px;
-            max-width: 600px;
-            line-height: 1.6;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.3s;
+            font-family: inherit;
+            position: relative;
         }
 
-        /* Responsive สำหรับมือถือ */
+        .tab-btn.active {
+            color: var(--cu-pink);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--cu-pink);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ฟอร์มทั่วไป */
+        .form-section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            font-size: 14px;
+        }
+
+        .form-control {
+            padding: 10px 14px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 15px;
+            transition: all 0.3s;
+            background-color: #FFFFFF;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--cu-pink);
+            box-shadow: 0 0 0 3px rgba(243, 127, 167, 0.15);
+        }
+
+        /* ฟิลด์ที่อ่านได้อย่างเดียว (Read-only) */
+        .form-control[readonly] {
+            background-color: #F3F4F6;
+            color: var(--text-light);
+            cursor: not-allowed;
+            border-color: #E5E7EB;
+        }
+        .form-control[readonly]:focus {
+            box-shadow: none;
+            border-color: #E5E7EB;
+        }
+
+        /* Checkbox & Sub-options */
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-item-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: #fff;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            padding: 15px;
+            transition: all 0.3s;
+        }
+
+        .checkbox-item-wrapper:hover:not(.disabled) {
+            border-color: var(--cu-pink);
+        }
+
+        .checkbox-item-wrapper.active {
+            border-color: var(--cu-pink);
+            background-color: var(--cu-pink-light);
+        }
+
+        /* สไตล์สำหรับบริการที่ถูกปิดกั้นตามเงื่อนไข (Disabled) */
+        .checkbox-item-wrapper.disabled {
+            background-color: #F9FAFB;
+            border-color: #E5E7EB;
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .checkbox-item-wrapper.disabled .checkbox-main,
+        .checkbox-item-wrapper.disabled input[type="checkbox"],
+        .checkbox-item-wrapper.disabled .checkbox-label {
+            cursor: not-allowed;
+        }
+
+        .checkbox-main {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .checkbox-main input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--cu-pink);
+            cursor: pointer;
+        }
+
+        .checkbox-label {
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--text-dark);
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* รายละเอียดปลีกย่อย */
+        .sub-options {
+            display: none;
+            padding-top: 10px;
+            border-top: 1px dashed #D1D5DB;
+            margin-top: 5px;
+        }
+
+        .sub-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .sub-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .sub-label {
+            font-size: 13px;
+            color: var(--text-dark);
+            flex-shrink: 0;
+            width: 100px;
+        }
+
+        .sub-input {
+            flex: 1;
+            padding: 6px 10px;
+            font-size: 14px;
+            border: 1px solid #D1D5DB;
+            border-radius: 6px;
+            font-family: inherit;
+        }
+
+        .upload-area {
+            border: 2px dashed #D1D5DB;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            background-color: #F9FAFB;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            border-color: var(--cu-pink);
+            background-color: var(--cu-pink-light);
+        }
+
+        .upload-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            margin-top: 20px;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .alert-box {
+            display: none;
+            padding: 12px;
+            background-color: #FEF2F2;
+            color: #DC2626;
+            border: 1px solid #F87171;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
         @media screen and (max-width: 768px) {
-            .construction-container {
-                margin: 40px 20px 60px;
-                padding: 30px 20px;
-            }
-            .construction-title {
-                font-size: 24px;
-            }
-            .construction-desc {
-                font-size: 16px;
-            }
-            .construction-icon {
-                font-size: 60px;
-            }
+            .form-row { flex-direction: column; gap: 15px; }
+            .checkbox-grid { grid-template-columns: 1fr; }
+            .form-card { padding: 24px; }
+            .sub-row { flex-direction: column; align-items: flex-start; gap: 5px; }
         }
     </style>
 </head>
@@ -77,22 +301,18 @@
     <nav>
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <!-- เพิ่มโลโก้ตรงนี้ (ตั้ง fallback เป็น placeholder เผื่อรูปพัง) -->
-                <img src="assets/icons/cuvet.png" alt="Logo" class="nav-logo-img" onerror="this.src='https://placehold.co/40x40/F37FA7/ffffff?text=Logo'">
+                <img src="assets/icons/cuvet.jpg" alt="Logo" class="nav-logo-img" onerror="this.src='https://placehold.co/40x40/F37FA7/ffffff?text=Logo'">
                 <span data-i18n="logo_text">Academic Services</span>
             </a>
             
-            <!-- ปุ่มเมนูสำหรับมือถือ (Hamburger Icon) -->
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
 
-            <!-- ลิงก์เมนูต่างๆ -->
             <div class="nav-links" id="nav-menu">
-                <a href="index.html#services" data-i18n="nav_services" onclick="toggleMenu()">บริการของเรา</a>
+                <a href="index.html#services" data-i18n="nav_services">บริการของเรา</a>
                 <a href="contact.html" data-i18n="nav_contact">ติดต่อสอบถาม</a>
                 <a href="login.html" class="btn-outline" data-i18n="nav_login">เข้าสู่ระบบ</a>
                 <a href="register.html" class="btn-outline" style="background-color: var(--cu-pink); color: white;" data-i18n="nav_register">ลงทะเบียน</a>
                 
-                <!-- ปุ่มสลับภาษา -->
                 <div class="lang-switcher">
                     <button class="lang-btn active" id="btn-th" onclick="changeLanguage('th')">TH</button>
                     <button class="lang-btn" id="btn-en" onclick="changeLanguage('en')">EN</button>
@@ -101,91 +321,393 @@
         </div>
     </nav>
 
-    <!-- ส่วนเนื้อหา Under Construction -->
-    <main>
-        <div class="construction-container">
-            <div class="construction-icon">⚙️</div>
-            <h1 class="construction-title" data-i18n="construct_title">หน้านี้อยู่ในระหว่างการปรับปรุง</h1>
-            <p class="construction-desc" data-i18n="construct_desc">ขออภัยในความไม่สะดวก ระบบในส่วนนี้กำลังอยู่ระหว่างการพัฒนาและเตรียมความพร้อม เพื่อเปิดให้บริการในเร็วๆ นี้</p>
-            <a href="index.html" class="btn-primary" data-i18n="btn_back_home">กลับสู่หน้าหลัก</a>
+    <div class="page-header">
+        <h1 data-i18n="req_header_title">ระบบส่งตัวอย่างสิ่งส่งตรวจ</h1>
+        <p data-i18n="req_header_desc">เลือกลักษณะการส่งตัวอย่าง และกรอกข้อมูลให้ครบถ้วนเพื่อความรวดเร็วในการให้บริการ</p>
+    </div>
+
+    <main class="request-container">
+        
+        <!-- Tabs -->
+        <div class="tabs-wrapper">
+            <button class="tab-btn active" onclick="switchTab('single')" data-i18n="tab_single">งานเดี่ยว (Single Request)</button>
+            <button class="tab-btn" onclick="switchTab('group')" data-i18n="tab_group">งานกลุ่ม (Batch/Project Request)</button>
         </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 1: งานเดี่ยว (Single Request) -->
+        <!-- ========================================== -->
+        <div id="tab-single" class="tab-content active form-card">
+            <form action="#" method="POST">
+                
+                <!-- Section 1: ข้อมูลผู้ส่ง (ดึงจากระบบ) -->
+                <h2 class="form-section-title" data-i18n="req_sec_user_info">ข้อมูลผู้ส่งตรวจ (อ้างอิงจากระบบ)</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="req_lbl_researcher">ชื่อผู้วิจัย / ผู้ส่งตรวจ</label>
+                        <input type="text" class="form-control" value="คุณตัวอย่าง ผู้ทดสอบระบบ" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="req_lbl_org">ชื่อหน่วยงาน / ภาควิชา</label>
+                        <input type="text" class="form-control" value="คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย" readonly>
+                    </div>
+                </div>
+
+                <!-- Section 2: ข้อมูลตัวอย่าง -->
+                <h2 class="form-section-title" style="margin-top: 30px;" data-i18n="req_sec_sample_info">ข้อมูลชุดตัวอย่าง</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="req_lbl_sample_name">ชื่อชุดตัวอย่าง / ชื่อโครงการ (Sample Batch Name)</label>
+                        <input type="text" class="form-control" placeholder="ระบุชื่องานเพื่อให้ง่ายต่อการติดตาม เช่น Project A (สุนัข)" required>
+                    </div>
+                </div>
+
+                <!-- Section 3: ชนิดตัวอย่าง -->
+                <h2 class="form-section-title" style="margin-top: 15px;" data-i18n="req_sec_sample_type">ลักษณะตัวอย่างที่ส่งมา (เลือกได้มากกว่า 1)</h2>
+                <div class="checkbox-grid">
+                    <div class="checkbox-item-wrapper">
+                        <label class="checkbox-main">
+                            <input type="checkbox" id="sample-tissue" class="sample-cb" value="tissue" onchange="evaluateLogic()">
+                            <span class="checkbox-label" data-i18n="req_opt_tissue">ชิ้นเนื้อสด / แช่ฟอร์มาลิน (Tissue)</span>
+                        </label>
+                    </div>
+                    <div class="checkbox-item-wrapper">
+                        <label class="checkbox-main">
+                            <input type="checkbox" id="sample-block" class="sample-cb" value="block" onchange="evaluateLogic()">
+                            <span class="checkbox-label" data-i18n="req_opt_block">บล็อกพาราฟิน (Paraffin Block)</span>
+                        </label>
+                    </div>
+                    <div class="checkbox-item-wrapper">
+                        <label class="checkbox-main">
+                            <input type="checkbox" id="sample-slide" class="sample-cb" value="slide" onchange="evaluateLogic()">
+                            <span class="checkbox-label" data-i18n="req_opt_slide">สไลด์แก้ว (Glass Slide)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Section 4: บริการที่ต้องการ -->
+                <h2 class="form-section-title" style="margin-top: 30px;" data-i18n="req_sec_services">บริการที่ต้องการ</h2>
+                
+                <div id="logic-alert" class="alert-box" data-i18n="req_alert_logic">
+                    ⚠️ เนื่องจากท่านส่งชิ้นเนื้อและต้องการสแกนสไลด์ ระบบได้เลือกบริการ "ตัดสไลด์" และ "ย้อมสี" ให้อัตโนมัติ เพื่อให้กระบวนการสมบูรณ์
+                </div>
+
+                <div class="checkbox-grid">
+                    <!-- 1. Grossing -->
+                    <div class="checkbox-item-wrapper" id="wrap-gross">
+                        <label class="checkbox-main">
+                            <input type="checkbox" id="srv-gross" class="service-cb" data-sub="sub-gross" onchange="toggleSub(this)">
+                            <span class="checkbox-label" data-i18n="srv_grossing_title">บริการเตรียมชิ้นเนื้อ (Grossing)</span>
+                        </label>
+                        <div class="sub-options" id="sub-gross">
+                            <div class="sub-row">
+                                <span class="sub-label" data-i18n="sub_lbl_amount_block">จำนวนบล็อก:</span>
+                                <input type="number" class="sub-input" min="1" placeholder="ระบุจำนวนบล็อกที่ต้องการ">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Cryosection -->
+                    <div class="checkbox-item-wrapper" id="wrap-cryo">
+                        <label class="checkbox-main">
+                            <input type="checkbox" id="srv-cryo" class="service-cb" data-sub="sub-cryo" onchange="toggleSub(this)">
+                            <span class="checkbox-label" data-i18n="srv_cryo_title">บริการตัดชิ้นเนื้อแช่แข็ง (Cryosection)</span>
+                        </label>
+                        <div class="sub-options" id="sub-cryo">
+                            <div class="sub-row">
+                                <span class="sub-label" data-i18n="sub_lbl_amount_slide">จำนวนสไลด์:</span>
+                                <input type="number" class="sub-input" min="1" placeholder="ระบุจำนวนแผ่น">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Sectioning -->
+                    <div class="checkbox-item-wrapper" id="wrap-section">
+                        <label class="checkbox-main">
+                            <input type="checkbox" id="srv-section" class="service-cb" data-sub="sub-section" onchange="toggleSub(this)">
+                            <span class="checkbox-label" data-i18n="srv_sectioning_title">บริการตัดสไลด์ (Sectioning)</span>
+                        </label>
+                        <div class="sub-options" id="sub-section">
+                            <div class="sub-row">
+                                <span class="sub-label" data-i18n="sub_lbl_amount_slide">จำนวนสไลด์:</span>
+                                <input type="number" class="sub-input" min="1" placeholder="ระบุจำนวนแผ่น">
+                            </div>
+                            <div class="sub-row">
+                                <span class="sub-label" data-i18n="sub_lbl_thickness">ความหนา (µm):</span>
+                                <input type="text" class="sub-input" placeholder="เช่น 4-5 µm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Staining -->
+                    <div class="checkbox-item-wrapper" id="wrap-stain">
+                        <label class="checkbox-main">
+                            <input type="checkbox" id="srv-stain" class="service-cb" data-sub="sub-stain" onchange="toggleSub(this)">
+                            <span class="checkbox-label" data-i18n="srv_staining_title">บริการย้อมสไลด์ (Staining)</span>
+                        </label>
+                        <div class="sub-options" id="sub-stain">
+                            <div class="sub-row">
+                                <span class="sub-label" data-i18n="sub_lbl_stain_type">ชนิดสี:</span>
+                                <select class="sub-input" id="stain-dropdown" onchange="checkSpecialStain()">
+                                    <option value="H&E">H&E (พื้นฐาน)</option>
+                                    <option value="Special">สีพิเศษ (Special Stain)</option>
+                                </select>
+                            </div>
+                            <!-- ช่องพิมพ์สีพิเศษ จะโผล่เมื่อเลือก dropdown สีพิเศษ -->
+                            <div class="sub-row" id="special-stain-box" style="display: none;">
+                                <span class="sub-label"></span>
+                                <input type="text" class="sub-input" placeholder="โปรดระบุชื่อสีพิเศษ (เช่น PAS, MT)" style="border-color: var(--cu-pink);">
+                            </div>
+                            <div class="sub-row">
+                                <span class="sub-label" data-i18n="sub_lbl_amount_slide">จำนวนแผ่น:</span>
+                                <input type="number" class="sub-input" min="1" placeholder="ระบุจำนวนแผ่น">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Scanning -->
+                    <div class="checkbox-item-wrapper" id="wrap-scan">
+                        <label class="checkbox-main">
+                            <input type="checkbox" id="srv-scan" class="service-cb" data-sub="sub-scan" onchange="toggleSub(this); evaluateLogic();">
+                            <span class="checkbox-label" data-i18n="srv_scanning_title">บริการสแกนสไลด์ (Scanning)</span>
+                        </label>
+                        <div class="sub-options" id="sub-scan">
+                            <div class="sub-row">
+                                <span class="sub-label" data-i18n="sub_lbl_resolution">กำลังขยาย:</span>
+                                <select class="sub-input">
+                                    <option value="20x">20x</option>
+                                    <option value="40x">40x</option>
+                                </select>
+                            </div>
+                            <div class="sub-row">
+                                <span class="sub-label" data-i18n="sub_lbl_amount_slide">จำนวนแผ่น:</span>
+                                <input type="number" class="sub-input" min="1" placeholder="ระบุจำนวนแผ่น">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 6. Analysis -->
+                    <div class="checkbox-item-wrapper" id="wrap-analyze">
+                        <label class="checkbox-main">
+                            <input type="checkbox" id="srv-analyze" class="service-cb" data-sub="sub-analyze" onchange="toggleSub(this)">
+                            <span class="checkbox-label" data-i18n="srv_analysis_title">บริการวิเคราะห์สไลด์ (Analysis)</span>
+                        </label>
+                        <div class="sub-options" id="sub-analyze">
+                            <div class="sub-row">
+                                <span class="sub-label" data-i18n="sub_lbl_details">ขอบเขตงาน:</span>
+                                <input type="text" class="sub-input" placeholder="รอยโรคที่ต้องการเน้น">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 20px;">
+                    <label class="form-label" data-i18n="req_lbl_details">รายละเอียดเพิ่มเติม / หมายเหตุ</label>
+                    <textarea class="form-control" style="min-height: 80px;" placeholder="..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary btn-submit" data-i18n="req_btn_submit">ยืนยันการส่งข้อมูล</button>
+            </form>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- TAB 2: งานกลุ่ม (Batch/Project Request) -->
+        <!-- ========================================== -->
+        <div id="tab-group" class="tab-content form-card">
+            <form action="#" method="POST">
+                <!-- ดึงข้อมูลผู้ใช้มาโชว์เหมือนงานเดี่ยว -->
+                <h2 class="form-section-title" data-i18n="req_sec_user_info">ข้อมูลผู้ส่งตรวจ (อ้างอิงจากระบบ)</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="req_lbl_researcher">ชื่อผู้วิจัย / ผู้ส่งตรวจ</label>
+                        <input type="text" class="form-control" value="คุณตัวอย่าง ผู้ทดสอบระบบ" readonly>
+                    </div>
+                </div>
+
+                <h2 class="form-section-title" style="margin-top: 30px;" data-i18n="tab_group">การส่งงานแบบกลุ่ม (Batch Submission)</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="req_lbl_sample_name">ชื่อโครงการ / ชื่อชุดตัวอย่าง</label>
+                        <input type="text" class="form-control" placeholder="..." required>
+                    </div>
+                </div>
+
+                <p style="color: var(--text-light); margin-bottom: 20px;" data-i18n="group_desc">
+                    สำหรับโครงการวิจัยที่มีสิ่งส่งตรวจจำนวนมาก กรุณาดาวน์โหลดแบบฟอร์ม Excel เพื่อระบุรหัสตัวอย่างและบริการที่ต้องการ จากนั้นอัปโหลดไฟล์เข้าระบบ
+                </p>
+                
+                <div style="display: flex; gap: 15px; margin-bottom: 30px;">
+                    <a href="#" class="btn-outline" style="text-decoration: none;" data-i18n="btn_dl_template">⬇️ ดาวน์โหลดแบบฟอร์ม Excel</a>
+                </div>
+
+                <label class="form-label" data-i18n="lbl_upload">อัปโหลดไฟล์แบบฟอร์ม (Excel/CSV)</label>
+                <div class="upload-area">
+                    <div class="upload-icon">📁</div>
+                    <h3 style="margin-bottom: 5px; color: var(--text-dark);" data-i18n="upload_title">ลากไฟล์มาวางที่นี่ หรือ คลิกเพื่อเลือกไฟล์</h3>
+                    <p style="color: var(--text-light); font-size: 14px;" data-i18n="upload_desc">รองรับไฟล์ .xlsx, .xls, .csv ขนาดไม่เกิน 10MB</p>
+                    <input type="file" style="display: none;" id="file-upload" accept=".xlsx, .xls, .csv">
+                </div>
+
+                <button type="button" class="btn-primary btn-submit" onclick="document.getElementById('file-upload').click()" style="background-color: var(--text-dark); margin-bottom: 10px;" data-i18n="btn_choose_file">เลือกไฟล์อัปโหลด</button>
+                <button type="submit" class="btn-primary btn-submit" style="margin-top: 0;" data-i18n="req_btn_submit">ยืนยันการส่งข้อมูลงานกลุ่ม</button>
+            </form>
+        </div>
+
     </main>
 
-    <!-- Footer แบบใหม่ (พรีเมียมขึ้น) -->
+    <!-- Footer -->
     <footer>
         <div class="footer-container">
-            <!-- ฝั่งซ้าย: โลโก้ -->
             <div class="footer-logos">
-                <!-- เตรียมไฟล์โลโก้จริงเป็น PNG พื้นใส จะสวยมากครับ -->
                 <img src="assets/icons/cuvet_90th.png" alt="CUVET Logo" class="footer-logo-img" onerror="this.src='https://placehold.co/120x80/f9fafb/475569?text=CUVET'">
                 <img src="assets/icons/anatomy_logo.png" alt="Anatomy Dept Logo" class="footer-logo-img" onerror="this.src='https://placehold.co/80x80/f9fafb/475569?text=ANAT'">
             </div>
-
-            <!-- ฝั่งขวา: ลิงก์หน่วยงาน -->
             <div class="footer-links-wrapper">
                 <div class="footer-links-title" data-i18n="foot_link_title">หน่วยงานที่เกี่ยวข้อง</div>
                 <div class="footer-links">
                     <ul>
                         <li><a href="https://www.vet.chula.ac.th/" target="_blank" data-i18n="foot_link_1">คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย</a></li>
-                        <li><a href="https://www.vet.chula.ac.th/department/anatomy" data-i18n="foot_link_2">ภาควิชากายวิภาคศาสตร์ คณะสัตวแพทยศาสตร์</a></li>
-                        <li><a href="http://www.exhibitant.vet.chula.ac.th/" data-i18n="foot_link_3">ส่วนจัดแสดงกายวิภาคทางสัตวแพทย์</a></li>
-                        <li><a href="https://luvkronis.github.io/vet.biosci/" data-i18n="foot_link_4">หลักสูตรบัณฑิตศึกษา ชีวศาสตร์ทางสัตวแพทย์</a></li>
+                        <li><a href="#" data-i18n="foot_link_2">ภาควิชากายวิภาคศาสตร์ คณะสัตวแพทยศาสตร์</a></li>
+                        <li><a href="#" data-i18n="foot_link_3">ส่วนจัดแสดงกายวิภาคทางสัตวแพทย์</a></li>
+                        <li><a href="#" data-i18n="foot_link_4">หลักสูตรบัณฑิตศึกษา ชีวศาสตร์ทางสัตวแพทย์</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-
-        <!-- ส่วนล่างสุด: ลิขสิทธิ์ -->
         <div class="footer-bottom">
             <p data-i18n="footer_copy">&copy; 2026 VET-ANAT HistoHub Services. All rights reserved.</p>
             <p data-i18n="footer_note">หมายเหตุ: ระบบนี้ออกแบบมาเพื่อรองรับงานวิจัยและงานบริการวิชาการโดยเฉพาะ</p>
         </div>
     </footer>
 
-    <!-- JavaScript สำหรับระบบ 2 ภาษาและเมนู -->
+    <!-- JavaScript -->
     <script>
         const translations = {
             th: {
-                page_title: "อยู่ระหว่างการปรับปรุง - Academic Services",
+                page_title: "ส่งตัวอย่างสิ่งส่งตรวจ - Academic Services",
                 logo_text: "Academic Services",
                 nav_services: "บริการของเรา",
                 nav_contact: "ติดต่อสอบถาม",
                 nav_login: "เข้าสู่ระบบ",
                 nav_register: "ลงทะเบียน",
-                construct_title: "หน้านี้อยู่ในระหว่างการปรับปรุง",
-                construct_desc: "ขออภัยในความไม่สะดวก ระบบในส่วนนี้กำลังอยู่ระหว่างการพัฒนาและเตรียมความพร้อม เพื่อเปิดให้บริการในเร็วๆ นี้",
-                btn_back_home: "กลับสู่หน้าหลัก",
-                footer_copy: "&copy; 2026 VET-ANAT HistoHub. All rights reserved.",
-                footer_note: "หมายเหตุ: ระบบนี้ออกแบบมาเพื่อรองรับงานวิจัยและงานบริการวิชาการโดยเฉพาะ",
+                
+                req_header_title: "ระบบส่งตัวอย่างสิ่งส่งตรวจ",
+                req_header_desc: "เลือกลักษณะการส่งตัวอย่าง และกรอกข้อมูลให้ครบถ้วนเพื่อความรวดเร็วในการให้บริการ",
+                tab_single: "งานเดี่ยว (Single Request)",
+                tab_group: "งานกลุ่ม (Batch/Project Request)",
+                
+                req_sec_user_info: "ข้อมูลผู้ส่งตรวจ (อ้างอิงจากระบบ)",
+                req_lbl_researcher: "ชื่อผู้วิจัย / ผู้ส่งตรวจ",
+                req_lbl_org: "ชื่อหน่วยงาน / ภาควิชา",
+                
+                req_sec_sample_info: "ข้อมูลชุดตัวอย่าง",
+                req_lbl_sample_name: "ชื่อชุดตัวอย่าง / ชื่อโครงการ (Sample Batch Name)",
+                
+                req_sec_sample_type: "ลักษณะตัวอย่างที่ส่งมา (เลือกได้มากกว่า 1)",
+                req_opt_tissue: "ชิ้นเนื้อสด / แช่ฟอร์มาลิน (Tissue)",
+                req_opt_block: "บล็อกพาราฟิน (Paraffin Block)",
+                req_opt_slide: "สไลด์แก้ว (Glass Slide)",
+                
+                req_sec_services: "บริการที่ต้องการ",
+                req_alert_logic: "⚠️ เนื่องจากท่านส่งชิ้นเนื้อและต้องการสแกนสไลด์ ระบบได้เลือกบริการ 'ตัดสไลด์' และ 'ย้อมสี' ให้อัตโนมัติ เพื่อให้กระบวนการสมบูรณ์",
+                
+                srv_grossing_title: "บริการเตรียมชิ้นเนื้อ (Grossing)",
+                srv_cryo_title: "บริการตัดชิ้นเนื้อแช่แข็ง (Cryosection)",
+                srv_sectioning_title: "บริการตัดสไลด์ (Sectioning)",
+                srv_staining_title: "บริการย้อมสไลด์ (Staining)",
+                srv_scanning_title: "บริการสแกนสไลด์ (Scanning)",
+                srv_analysis_title: "บริการวิเคราะห์สไลด์ (Analysis)",
+                
+                sub_lbl_amount_block: "จำนวนบล็อก:",
+                sub_lbl_amount_slide: "จำนวนสไลด์/แผ่น:",
+                sub_lbl_thickness: "ความหนา (µm):",
+                sub_lbl_stain_type: "ชนิดสี:",
+                sub_lbl_resolution: "กำลังขยาย:",
+                sub_lbl_details: "ขอบเขตงาน:",
+                
+                req_lbl_details: "รายละเอียดเพิ่มเติม / หมายเหตุ",
+                req_btn_submit: "ยืนยันการส่งข้อมูล",
+                
+                group_desc: "สำหรับโครงการวิจัยที่มีสิ่งส่งตรวจจำนวนมาก กรุณาดาวน์โหลดแบบฟอร์ม Excel เพื่อระบุรหัสตัวอย่างและบริการที่ต้องการ จากนั้นอัปโหลดไฟล์เข้าระบบ",
+                btn_dl_template: "⬇️ ดาวน์โหลดแบบฟอร์ม Excel",
+                lbl_upload: "อัปโหลดไฟล์แบบฟอร์ม (Excel/CSV)",
+                upload_title: "ลากไฟล์มาวางที่นี่ หรือ คลิกเพื่อเลือกไฟล์",
+                upload_desc: "รองรับไฟล์ .xlsx, .xls, .csv ขนาดไม่เกิน 10MB",
+                btn_choose_file: "เลือกไฟล์อัปโหลด",
+
                 foot_link_title: "หน่วยงานที่เกี่ยวข้อง",
                 foot_link_1: "คณะสัตวแพทยศาสตร์ จุฬาลงกรณ์มหาวิทยาลัย",
                 foot_link_2: "ภาควิชากายวิภาคศาสตร์ คณะสัตวแพทยศาสตร์",
                 foot_link_3: "ส่วนจัดแสดงกายวิภาคทางสัตวแพทย์",
-                foot_link_4: "หลักสูตรบัณฑิตศึกษา ชีวศาสตร์ทางสัตวแพทย์"
+                foot_link_4: "หลักสูตรบัณฑิตศึกษา ชีวศาสตร์ทางสัตวแพทย์",
+                footer_copy: "&copy; 2026 VET-ANAT HistoHub. All rights reserved.",
+                footer_note: "หมายเหตุ: ระบบนี้ออกแบบมาเพื่อรองรับงานวิจัยและงานบริการวิชาการโดยเฉพาะ"
             },
             en: {
-                page_title: "Under Construction - Academic Services",
+                page_title: "Sample Submission - Academic Services",
                 logo_text: "Academic Services",
                 nav_services: "Our Services",
                 nav_contact: "Contact Us",
                 nav_login: "Login",
                 nav_register: "Register",
-                construct_title: "Page Under Construction",
-                construct_desc: "Sorry for the inconvenience. This part of the system is currently under development and will be available soon.",
-                btn_back_home: "Back to Home",
-                footer_copy: "&copy; 2026 Academic Services. All rights reserved.",
-                footer_note: "Note: This system is designed specifically for research and academic services.",
+                
+                req_header_title: "Sample Submission System",
+                req_header_desc: "Select submission type and complete the details for efficient processing.",
+                tab_single: "Single Request",
+                tab_group: "Batch/Project Request",
+                
+                req_sec_user_info: "Submitter Information (System Reference)",
+                req_lbl_researcher: "Researcher / Submitter Name",
+                req_lbl_org: "Department / Organization",
+                
+                req_sec_sample_info: "Sample Batch Information",
+                req_lbl_sample_name: "Sample Batch Name / Project Name",
+                
+                req_sec_sample_type: "Sample Types Provided (Multiple allowed)",
+                req_opt_tissue: "Fresh Tissue / Formalin-Fixed (Tissue)",
+                req_opt_block: "Paraffin Block",
+                req_opt_slide: "Glass Slide",
+                
+                req_sec_services: "Requested Services",
+                req_alert_logic: "⚠️ Since you provided Tissue and requested Scanning, the system automatically selected 'Sectioning' and 'Staining' to complete the process.",
+                
+                srv_grossing_title: "Grossing Services",
+                srv_cryo_title: "Cryosectioning Services",
+                srv_sectioning_title: "Sectioning Services",
+                srv_staining_title: "Staining Services",
+                srv_scanning_title: "Scanning Services",
+                srv_analysis_title: "Slide Analysis Services",
+                
+                sub_lbl_amount_block: "No. of Blocks:",
+                sub_lbl_amount_slide: "No. of Slides:",
+                sub_lbl_thickness: "Thickness (µm):",
+                sub_lbl_stain_type: "Stain Type:",
+                sub_lbl_resolution: "Magnification:",
+                sub_lbl_details: "Scope/Focus:",
+                
+                req_lbl_details: "Additional Details / Remarks",
+                req_btn_submit: "Submit Request",
+                
+                group_desc: "For large projects, please download the Excel template to detail the sample IDs and services required, then upload the file.",
+                btn_dl_template: "⬇️ Download Excel Template",
+                lbl_upload: "Upload Form File (Excel/CSV)",
+                upload_title: "Drag and drop file here, or click to select",
+                upload_desc: "Supports .xlsx, .xls, .csv up to 10MB",
+                btn_choose_file: "Choose File to Upload",
+
                 foot_link_title: "Related Links",
                 foot_link_1: "Faculty of Veterinary Science, Chulalongkorn University",
                 foot_link_2: "Department of Anatomy, Faculty of Veterinary Science",
                 foot_link_3: "Veterinary Anatomy Exhibition",
-                foot_link_4: "Graduate Program in Veterinary Biosciences"
+                foot_link_4: "Graduate Program in Veterinary Biosciences",
+                footer_copy: "&copy; 2026 Academic Services. All rights reserved.",
+                footer_note: "Note: This system is designed specifically for research and academic services."
             }
         };
 
+        // สลับภาษา
         function changeLanguage(lang) {
             localStorage.setItem('preferredLanguage', lang);
-
             document.getElementById('btn-th').classList.remove('active');
             document.getElementById('btn-en').classList.remove('active');
             document.getElementById(`btn-${lang}`).classList.add('active');
@@ -196,8 +718,95 @@
                     element.innerHTML = translations[lang][key];
                 }
             });
-
             document.documentElement.lang = lang;
+        }
+
+        // สลับแท็บ งานเดี่ยว/งานกลุ่ม
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+        }
+
+        // เปิด-ปิดเมนูย่อยของ Checkbox
+        function toggleSub(checkbox) {
+            if (checkbox.disabled) return; // ถ้าถูกล็อกไว้ ไม่ให้ทำอะไร
+            const subId = checkbox.getAttribute('data-sub');
+            const subMenu = document.getElementById(subId);
+            const wrapper = checkbox.closest('.checkbox-item-wrapper');
+            
+            if (checkbox.checked) {
+                subMenu.style.display = 'block';
+                wrapper.classList.add('active');
+            } else {
+                subMenu.style.display = 'none';
+                wrapper.classList.remove('active');
+            }
+        }
+
+        // เช็คเปิดช่องกรอกชื่อ "สีพิเศษ"
+        function checkSpecialStain() {
+            const dropdown = document.getElementById('stain-dropdown');
+            const specialBox = document.getElementById('special-stain-box');
+            if (dropdown.value === "Special") {
+                specialBox.style.display = "flex";
+            } else {
+                specialBox.style.display = "none";
+            }
+        }
+
+        // ฟังก์ชันอัจฉริยะ ล็อกการเลือกบริการตามชนิดตัวอย่าง
+        function evaluateLogic() {
+            const isTissue = document.getElementById('sample-tissue').checked;
+            const isBlock = document.getElementById('sample-block').checked;
+            const isSlide = document.getElementById('sample-slide').checked;
+            
+            // ดึง Checkbox ของบริการ
+            const cbGross = document.getElementById('srv-gross');
+            const cbCryo = document.getElementById('srv-cryo');
+            const cbSection = document.getElementById('srv-section');
+            const cbScan = document.getElementById('srv-scan');
+            const cbStain = document.getElementById('srv-stain');
+
+            // 1. ปลดล็อกทุกอย่างก่อน (Reset)
+            [cbGross, cbCryo, cbSection].forEach(cb => {
+                cb.disabled = false;
+                cb.closest('.checkbox-item-wrapper').classList.remove('disabled');
+            });
+
+            // 2. ลอจิก: ถ้าส่งเฉพาะ "สไลด์แก้ว" มาอย่างเดียว
+            if (isSlide && !isTissue && !isBlock) {
+                // ปิด Grossing, Cryo, Section
+                [cbGross, cbCryo, cbSection].forEach(cb => {
+                    cb.checked = false;
+                    cb.disabled = true;
+                    cb.closest('.checkbox-item-wrapper').classList.add('disabled');
+                    toggleSub(cb);
+                });
+            }
+            // 3. ลอจิก: ถ้าส่งเฉพาะ "บล็อก" มาอย่างเดียว
+            else if (isBlock && !isTissue && !isSlide) {
+                // ปิด Grossing, Cryo
+                [cbGross, cbCryo].forEach(cb => {
+                    cb.checked = false;
+                    cb.disabled = true;
+                    cb.closest('.checkbox-item-wrapper').classList.add('disabled');
+                    toggleSub(cb);
+                });
+            }
+
+            // 4. ลอจิกพิเศษ: เนื้อสด -> สแกนสไลด์
+            const alertBox = document.getElementById('logic-alert');
+            if (isTissue && cbScan.checked) {
+                // บังคับติ๊ก Section & Stain
+                cbSection.checked = true; toggleSub(cbSection);
+                cbStain.checked = true; toggleSub(cbStain);
+                alertBox.style.display = 'block';
+            } else {
+                alertBox.style.display = 'none';
+            }
         }
 
         function toggleMenu() {
@@ -208,6 +817,8 @@
         window.onload = () => {
             const savedLanguage = localStorage.getItem('preferredLanguage') || 'th';
             changeLanguage(savedLanguage);
+            // โหลดมาครั้งแรก ให้รันเช็คลอจิกเผื่อไว้ก่อน
+            evaluateLogic();
         };
     </script>
 </body>
